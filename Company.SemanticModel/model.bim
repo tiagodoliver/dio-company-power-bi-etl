@@ -1,0 +1,1193 @@
+{
+  "compatibilityLevel": 1606,
+  "model": {
+    "annotations": [
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"Employees\",\"Departments\",\"Locations\",\"Projects\",\"Assignments\",\"ManagerCounts\",\"Quality\",\"raw_employee\",\"raw_departament\",\"raw_dept_locations\",\"raw_project\",\"raw_works_on\",\"raw_dependent\"]"
+      },
+      {
+        "name": "__PBI_TimeIntelligenceEnabled",
+        "value": "1"
+      },
+      {
+        "name": "PBI_ProTooling",
+        "value": "[\"DevMode\"]"
+      }
+    ],
+    "culture": "pt-BR",
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "expressions": [
+      {
+        "name": "raw_employee",
+        "expression": [
+          "let",
+          "    Fonte = #table({\"Fname\", \"Minit\", \"Lname\", \"Ssn\", \"Bdate\", \"Address\", \"Sex\", \"Salary\", \"Super_ssn\", \"Dno\"}, {",
+          "        {\"John\", \"B\", \"Smith\", \"123456789\", \"1965-01-09\", \"731-Fondren-Houston-TX\", \"M\", 30000, \"333445555\", 5},",
+          "        {\"Franklin\", \"T\", \"Wong\", \"333445555\", \"1955-12-08\", \"638-Voss-Houston-TX\", \"M\", 40000, \"888665555\", 5},",
+          "        {\"Alicia\", \"J\", \"Zelaya\", \"999887777\", \"1968-01-19\", \"3321-Castle-Spring-TX\", \"F\", 25000, \"987654321\", 4},",
+          "        {\"Jennifer\", \"S\", \"Wallace\", \"987654321\", \"1941-06-20\", \"291-Berry-Bellaire-TX\", \"F\", 43000, \"888665555\", 4},",
+          "        {\"Ramesh\", \"K\", \"Narayan\", \"666884444\", \"1962-09-15\", \"975-Fire-Oak-Humble-TX\", \"M\", 38000, \"333445555\", 5},",
+          "        {\"Joyce\", \"A\", \"English\", \"453453453\", \"1972-07-31\", \"5631-Rice-Houston-TX\", \"F\", 25000, \"333445555\", 5},",
+          "        {\"Ahmad\", \"V\", \"Jabbar\", \"987987987\", \"1969-03-29\", \"980-Dallas-Houston-TX\", \"M\", 25000, \"987654321\", 4},",
+          "        {\"James\", \"E\", \"Borg\", \"888665555\", \"1937-11-10\", \"450-Stone-Houston-TX\", \"M\", 55000, null, 1}",
+          "    }),",
+          "    Tipos = Table.TransformColumnTypes(Fonte, {{\"Fname\", type text}, {\"Minit\", type text}, {\"Lname\", type text}, {\"Ssn\", type text}, {\"Bdate\", type text}, {\"Address\", type text}, {\"Sex\", type text}, {\"Salary\", type number}, {\"Super_ssn\", type text}, {\"Dno\", type number}})",
+          "in",
+          "    Tipos"
+        ],
+        "kind": "m",
+        "lineageTag": "3e3dfb84-9db9-434d-9578-9b6984403871"
+      },
+      {
+        "name": "raw_departament",
+        "expression": [
+          "let",
+          "    Fonte = #table({\"Dname\", \"Dnumber\", \"Mgr_ssn\", \"Mgr_start_date\", \"Dept_create_date\"}, {",
+          "        {\"Research\", 5, \"333445555\", \"1988-05-22\", \"1986-05-22\"},",
+          "        {\"Administration\", 4, \"987654321\", \"1995-01-01\", \"1994-01-01\"},",
+          "        {\"Headquarters\", 1, \"888665555\", \"1981-06-19\", \"1980-06-19\"}",
+          "    }),",
+          "    Tipos = Table.TransformColumnTypes(Fonte, {{\"Dname\", type text}, {\"Dnumber\", type number}, {\"Mgr_ssn\", type text}, {\"Mgr_start_date\", type text}, {\"Dept_create_date\", type text}})",
+          "in",
+          "    Tipos"
+        ],
+        "kind": "m",
+        "lineageTag": "0571d073-c5c0-41ee-bd37-b25585be1b0e"
+      },
+      {
+        "name": "raw_dept_locations",
+        "expression": [
+          "let",
+          "    Fonte = #table({\"Dnumber\", \"Dlocation\"}, {",
+          "        {1, \"Houston\"},",
+          "        {4, \"Stafford\"},",
+          "        {5, \"Bellaire\"},",
+          "        {5, \"Sugarland\"},",
+          "        {5, \"Houston\"}",
+          "    }),",
+          "    Tipos = Table.TransformColumnTypes(Fonte, {{\"Dnumber\", type number}, {\"Dlocation\", type text}})",
+          "in",
+          "    Tipos"
+        ],
+        "kind": "m",
+        "lineageTag": "1636fe1a-356a-47ea-86af-26f28042dc03"
+      },
+      {
+        "name": "raw_project",
+        "expression": [
+          "let",
+          "    Fonte = #table({\"Pname\", \"Pnumber\", \"Plocation\", \"Dnum\"}, {",
+          "        {\"ProductX\", 1, \"Bellaire\", 5},",
+          "        {\"ProductY\", 2, \"Sugarland\", 5},",
+          "        {\"ProductZ\", 3, \"Houston\", 5},",
+          "        {\"Computerization\", 10, \"Stafford\", 4},",
+          "        {\"Reorganization\", 20, \"Houston\", 1},",
+          "        {\"Newbenefits\", 30, \"Stafford\", 4}",
+          "    }),",
+          "    Tipos = Table.TransformColumnTypes(Fonte, {{\"Pname\", type text}, {\"Pnumber\", type number}, {\"Plocation\", type text}, {\"Dnum\", type number}})",
+          "in",
+          "    Tipos"
+        ],
+        "kind": "m",
+        "lineageTag": "46d31144-22e2-451c-92f6-183a7c5bae57"
+      },
+      {
+        "name": "raw_works_on",
+        "expression": [
+          "let",
+          "    Fonte = #table({\"Essn\", \"Pno\", \"Hours\"}, {",
+          "        {\"123456789\", 1, 32.5},",
+          "        {\"123456789\", 2, 7.5},",
+          "        {\"666884444\", 3, 40},",
+          "        {\"453453453\", 1, 20},",
+          "        {\"453453453\", 2, 20},",
+          "        {\"333445555\", 2, 10},",
+          "        {\"333445555\", 3, 10},",
+          "        {\"333445555\", 10, 10},",
+          "        {\"333445555\", 20, 10},",
+          "        {\"999887777\", 30, 30},",
+          "        {\"999887777\", 10, 10},",
+          "        {\"987987987\", 10, 35},",
+          "        {\"987987987\", 30, 5},",
+          "        {\"987654321\", 30, 20},",
+          "        {\"987654321\", 20, 15},",
+          "        {\"888665555\", 20, 0}",
+          "    }),",
+          "    Tipos = Table.TransformColumnTypes(Fonte, {{\"Essn\", type text}, {\"Pno\", type number}, {\"Hours\", type number}})",
+          "in",
+          "    Tipos"
+        ],
+        "kind": "m",
+        "lineageTag": "b2d1587f-325f-499f-a365-56cab894eab7"
+      },
+      {
+        "name": "raw_dependent",
+        "expression": [
+          "let",
+          "    Fonte = #table({\"Essn\", \"Dependent_name\", \"Sex\", \"Bdate\", \"Relationship\"}, {",
+          "        {\"333445555\", \"Alice\", \"F\", \"1986-04-05\", \"Daughter\"},",
+          "        {\"333445555\", \"Theodore\", \"M\", \"1983-10-25\", \"Son\"},",
+          "        {\"333445555\", \"Joy\", \"F\", \"1958-05-03\", \"Spouse\"},",
+          "        {\"987654321\", \"Abner\", \"M\", \"1942-02-28\", \"Spouse\"},",
+          "        {\"123456789\", \"Michael\", \"M\", \"1988-01-04\", \"Son\"},",
+          "        {\"123456789\", \"Alice\", \"F\", \"1988-12-30\", \"Daughter\"},",
+          "        {\"123456789\", \"Elizabeth\", \"F\", \"1967-05-05\", \"Spouse\"}",
+          "    }),",
+          "    Tipos = Table.TransformColumnTypes(Fonte, {{\"Essn\", type text}, {\"Dependent_name\", type text}, {\"Sex\", type text}, {\"Bdate\", type text}, {\"Relationship\", type text}})",
+          "in",
+          "    Tipos"
+        ],
+        "kind": "m",
+        "lineageTag": "57af33aa-e142-47bb-9771-967b6b55b6d7"
+      }
+    ],
+    "relationships": [
+      {
+        "name": "rel_0",
+        "fromColumn": "DepartmentId",
+        "fromTable": "Employees",
+        "toColumn": "DepartmentId",
+        "toTable": "Departments"
+      },
+      {
+        "name": "rel_1",
+        "fromColumn": "DepartmentId",
+        "fromTable": "Projects",
+        "isActive": false,
+        "toColumn": "DepartmentId",
+        "toTable": "Departments"
+      },
+      {
+        "name": "rel_2",
+        "fromColumn": "EmployeeId",
+        "fromTable": "Assignments",
+        "toColumn": "EmployeeId",
+        "toTable": "Employees"
+      },
+      {
+        "name": "rel_3",
+        "fromColumn": "ProjectId",
+        "fromTable": "Assignments",
+        "toColumn": "ProjectId",
+        "toTable": "Projects"
+      },
+      {
+        "name": "rel_4",
+        "fromColumn": "DepartmentId",
+        "fromTable": "Locations",
+        "toColumn": "DepartmentId",
+        "toTable": "Departments"
+      },
+      {
+        "name": "9315e165-baf2-4013-804c-816d6ca58935",
+        "fromColumn": "InicioGestao",
+        "fromTable": "Departments",
+        "joinOnDateBehavior": "datePartOnly",
+        "toColumn": "Date",
+        "toTable": "LocalDateTable_36a95257-0ebd-4612-9096-7ce25e6eeb77"
+      }
+    ],
+    "sourceQueryCulture": "en-US",
+    "tables": [
+      {
+        "name": "Employees",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "EmployeeId",
+            "dataType": "string",
+            "lineageTag": "06fac6e7-30f3-47b4-a2ec-ec22b36b895c",
+            "sourceColumn": "EmployeeId",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Nome",
+            "dataType": "string",
+            "lineageTag": "50c35123-ade9-4837-9dc0-701c3b9e5f1b",
+            "sourceColumn": "Nome",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DepartmentId",
+            "dataType": "int64",
+            "lineageTag": "d7e312d9-7f9c-4e59-8e6b-503acc3888af",
+            "sourceColumn": "DepartmentId",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Departamento",
+            "dataType": "string",
+            "lineageTag": "fa3703cc-3fc4-4c7d-b2bc-50af6947ee6e",
+            "sourceColumn": "Departamento",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ManagerId",
+            "dataType": "string",
+            "lineageTag": "4e022831-9d08-4325-bdb4-a3755455c31d",
+            "sourceColumn": "ManagerId",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Gerente",
+            "dataType": "string",
+            "lineageTag": "7d4d1ba4-cada-4048-92a2-c055697cf4ef",
+            "sourceColumn": "Gerente",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "SituacaoGerencia",
+            "dataType": "string",
+            "lineageTag": "010ed58e-af3a-4617-9e8a-ab6d1295da7c",
+            "sourceColumn": "SituacaoGerencia",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Salario",
+            "dataType": "double",
+            "formatString": "#,0.00",
+            "lineageTag": "1e5d446f-8fcb-469f-b93e-391fa6d1200e",
+            "sourceColumn": "Salario",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Numero",
+            "dataType": "string",
+            "lineageTag": "90a6258e-0203-4fc3-976b-1bab2695444f",
+            "sourceColumn": "Numero",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Rua",
+            "dataType": "string",
+            "lineageTag": "1a8e59d0-ec43-4ddd-a9ef-94e576ad08c3",
+            "sourceColumn": "Rua",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Cidade",
+            "dataType": "string",
+            "lineageTag": "6ecbf2df-511c-4a3f-b032-061b86835d9a",
+            "sourceColumn": "Cidade",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Estado",
+            "dataType": "string",
+            "lineageTag": "6cf813e3-a9c9-42f1-8cdb-6172431f30bf",
+            "sourceColumn": "Estado",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "093b7036-e38a-4981-a339-82358e466c96",
+        "measures": [
+          {
+            "name": "Colaboradores",
+            "expression": "COUNTROWS(Employees)",
+            "formatString": "0",
+            "lineageTag": "23c45c88-ccc2-4b38-b9b5-5bfecd951702"
+          },
+          {
+            "name": "Folha salarial",
+            "expression": "SUM(Employees[Salario])",
+            "formatString": "#,0",
+            "lineageTag": "4f4d5533-bb08-411b-a886-fa4afea719c1"
+          },
+          {
+            "name": "Salario medio",
+            "expression": "AVERAGE(Employees[Salario])",
+            "formatString": "#,0.00",
+            "lineageTag": "a0035c1e-158a-40c1-bea6-6e6e50000ddb"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Employees",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Fonte = raw_employee,",
+                "    Tipos = Table.TransformColumnTypes(Fonte, {{\"Salary\", type number}, {\"Dno\", Int64.Type}}),",
+                "    Nome = Table.AddColumn(Tipos, \"Nome\", each Text.Combine({[Fname], [Minit], [Lname]}, \" \"), type text),",
+                "    PartesEndereco = Table.AddColumn(Nome, \"Partes\", each Text.Split([Address], \"-\")),",
+                "    Estado = Table.AddColumn(PartesEndereco, \"Estado\", each List.Last([Partes]), type text),",
+                "    Cidade = Table.AddColumn(Estado, \"Cidade\", each List.Last(List.RemoveLastN([Partes], 1)), type text),",
+                "    Rua = Table.AddColumn(Cidade, \"Rua\", each Text.Combine(List.RemoveLastN(List.Skip([Partes],1),2), \"-\"), type text),",
+                "    Numero = Table.AddColumn(Rua, \"Numero\", each List.First([Partes]), type text),",
+                "    MesclaDepartamento = Table.NestedJoin(Numero, {\"Dno\"}, raw_departament, {\"Dnumber\"}, \"Dept\", JoinKind.LeftOuter),",
+                "    ExpandeDepartamento = Table.ExpandTableColumn(MesclaDepartamento, \"Dept\", {\"Dname\"}, {\"Departamento\"}),",
+                "    MesclaGerente = Table.NestedJoin(ExpandeDepartamento, {\"Super_ssn\"}, Nome, {\"Ssn\"}, \"Gestor\", JoinKind.LeftOuter),",
+                "    ExpandeGerente = Table.ExpandTableColumn(MesclaGerente, \"Gestor\", {\"Nome\"}, {\"Gerente\"}),",
+                "    Nivel = Table.AddColumn(ExpandeGerente, \"SituacaoGerencia\", each if [Super_ssn] = null then \"Topo da hierarquia\" else if [Gerente] = null then \"Gerente nao localizado\" else \"Com gerente\", type text),",
+                "    Renomeia = Table.RenameColumns(Nivel, {{\"Ssn\",\"EmployeeId\"},{\"Super_ssn\",\"ManagerId\"},{\"Dno\",\"DepartmentId\"},{\"Salary\",\"Salario\"}}),",
+                "    Seleciona = Table.SelectColumns(Renomeia, {\"EmployeeId\",\"Nome\",\"DepartmentId\",\"Departamento\",\"ManagerId\",\"Gerente\",\"SituacaoGerencia\",\"Salario\",\"Numero\",\"Rua\",\"Cidade\",\"Estado\"})",
+                "in Seleciona"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Departments",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "DepartmentId",
+            "dataType": "int64",
+            "lineageTag": "576481a2-3347-4454-83f7-292e5edc127f",
+            "sourceColumn": "DepartmentId",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Departamento",
+            "dataType": "string",
+            "lineageTag": "bd2090b8-94c0-49a9-830d-6651f05c6c55",
+            "sourceColumn": "Departamento",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ManagerId",
+            "dataType": "string",
+            "lineageTag": "de428c11-36e6-4202-a23a-9cd029f9fcba",
+            "sourceColumn": "ManagerId",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Gerente",
+            "dataType": "string",
+            "lineageTag": "2f7794af-6435-41c5-8432-edcc108cc019",
+            "sourceColumn": "Gerente",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "InicioGestao",
+            "annotations": [
+              {
+                "name": "UnderlyingDateTimeDataType",
+                "value": "Date"
+              }
+            ],
+            "dataType": "dateTime",
+            "formatString": "Long Date",
+            "lineageTag": "3fb9d4a4-1afe-4f21-81b9-a39fa6cc6a98",
+            "sourceColumn": "InicioGestao",
+            "summarizeBy": "none",
+            "variations": [
+              {
+                "name": "Variação",
+                "defaultHierarchy": {
+                  "hierarchy": "Hierarquia de datas",
+                  "table": "LocalDateTable_36a95257-0ebd-4612-9096-7ce25e6eeb77"
+                },
+                "isDefault": true,
+                "relationship": "9315e165-baf2-4013-804c-816d6ca58935"
+              }
+            ]
+          }
+        ],
+        "lineageTag": "4c000c1b-1b96-4255-8b1f-68f3747b7a80",
+        "measures": [
+          {
+            "name": "Departamentos",
+            "expression": "COUNTROWS(Departments)",
+            "formatString": "0",
+            "lineageTag": "c4d4ad1d-c72e-4310-a1c8-9324f2ae1c3e"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Departments",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Fonte = raw_departament,",
+                "    Mescla = Table.NestedJoin(Fonte, {\"Mgr_ssn\"}, Employees, {\"EmployeeId\"}, \"Gestor\", JoinKind.LeftOuter),",
+                "    Expande = Table.ExpandTableColumn(Mescla, \"Gestor\", {\"Nome\"}, {\"Gerente\"}),",
+                "    Tipos = Table.TransformColumnTypes(Expande, {{\"Dnumber\",Int64.Type},{\"Mgr_start_date\",type date}}, \"en-US\"),",
+                "    Renomeia = Table.RenameColumns(Tipos, {{\"Dnumber\",\"DepartmentId\"},{\"Dname\",\"Departamento\"},{\"Mgr_ssn\",\"ManagerId\"},{\"Mgr_start_date\",\"InicioGestao\"}}),",
+                "    Resultado = Table.SelectColumns(Renomeia,{\"DepartmentId\",\"Departamento\",\"ManagerId\",\"Gerente\",\"InicioGestao\"})",
+                "in Resultado"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Locations",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "DepartmentId",
+            "dataType": "int64",
+            "lineageTag": "46c7d853-4db3-4126-9233-4fb113aad6d0",
+            "sourceColumn": "DepartmentId",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Local",
+            "dataType": "string",
+            "lineageTag": "13593505-f87d-4d53-b12a-793806848585",
+            "sourceColumn": "Local",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Departamento",
+            "dataType": "string",
+            "lineageTag": "92f632aa-111b-4fd3-8916-b560c34d12a7",
+            "sourceColumn": "Departamento",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DepartamentoLocal",
+            "dataType": "string",
+            "lineageTag": "03245cd7-0060-4fb9-9c45-23141ab39e26",
+            "sourceColumn": "DepartamentoLocal",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "5af67f1c-6a3f-4b46-b98f-3458dcba5e20",
+        "partitions": [
+          {
+            "name": "Locations",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Mescla = Table.NestedJoin(raw_dept_locations,{\"Dnumber\"},raw_departament,{\"Dnumber\"},\"Dept\",JoinKind.LeftOuter),",
+                "    Expande = Table.ExpandTableColumn(Mescla,\"Dept\",{\"Dname\"},{\"Departamento\"}),",
+                "    Combinacao = Table.AddColumn(Expande,\"DepartamentoLocal\",each [Departamento] & \" - \" & [Dlocation],type text),",
+                "    Renomeia = Table.RenameColumns(Combinacao,{{\"Dnumber\",\"DepartmentId\"},{\"Dlocation\",\"Local\"}}),",
+                "    Tipos = Table.TransformColumnTypes(Renomeia,{{\"DepartmentId\",Int64.Type}})",
+                "in Tipos"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Projects",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "ProjectId",
+            "dataType": "int64",
+            "lineageTag": "945d74f0-9e8a-46e8-8367-08dddffab6a0",
+            "sourceColumn": "ProjectId",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Projeto",
+            "dataType": "string",
+            "lineageTag": "b6135ae5-9308-40ed-aea4-fa1011dbe89a",
+            "sourceColumn": "Projeto",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Local",
+            "dataType": "string",
+            "lineageTag": "0fcb4430-38e3-4eb3-a7f4-0442eaaa8633",
+            "sourceColumn": "Local",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DepartmentId",
+            "dataType": "int64",
+            "lineageTag": "75e9f2cd-d144-45f6-814c-170035e920c5",
+            "sourceColumn": "DepartmentId",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Departamento",
+            "dataType": "string",
+            "lineageTag": "e4a2a8c2-7a84-4f13-a4df-8f93ac28404a",
+            "sourceColumn": "Departamento",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "e2dde356-6cd7-4bc0-b3c0-b714dd1cfb62",
+        "measures": [
+          {
+            "name": "Projetos",
+            "expression": "COUNTROWS(Projects)",
+            "formatString": "0",
+            "lineageTag": "33117b1b-1065-4825-83cd-e5c56f29e338"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Projects",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Mescla = Table.NestedJoin(raw_project,{\"Dnum\"},raw_departament,{\"Dnumber\"},\"Dept\",JoinKind.LeftOuter),",
+                "    Expande = Table.ExpandTableColumn(Mescla,\"Dept\",{\"Dname\"},{\"Departamento\"}),",
+                "    Renomeia = Table.RenameColumns(Expande,{{\"Pnumber\",\"ProjectId\"},{\"Pname\",\"Projeto\"},{\"Plocation\",\"Local\"},{\"Dnum\",\"DepartmentId\"}}),",
+                "    Tipos = Table.TransformColumnTypes(Renomeia,{{\"ProjectId\",Int64.Type},{\"DepartmentId\",Int64.Type}})",
+                "in Tipos"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Assignments",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "EmployeeId",
+            "dataType": "string",
+            "lineageTag": "4ee836e2-56e9-42d7-b476-cf9f1ea9628e",
+            "sourceColumn": "EmployeeId",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ProjectId",
+            "dataType": "int64",
+            "lineageTag": "f4a7f7d3-2440-4eb4-acfe-39fbd5b48f62",
+            "sourceColumn": "ProjectId",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Horas",
+            "dataType": "double",
+            "lineageTag": "ddc19839-836d-42d2-9f1e-316e64fd305a",
+            "sourceColumn": "Horas",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Colaborador",
+            "dataType": "string",
+            "lineageTag": "661b87e9-243b-4632-ad11-4b0078b9c74a",
+            "sourceColumn": "Colaborador",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DepartamentoColaborador",
+            "dataType": "string",
+            "lineageTag": "15feb1cc-d01f-46e6-8515-e83b71a53c47",
+            "sourceColumn": "DepartamentoColaborador",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Gerente",
+            "dataType": "string",
+            "lineageTag": "7aaae620-944f-4c05-acbc-c09d7cc6617f",
+            "sourceColumn": "Gerente",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Projeto",
+            "dataType": "string",
+            "lineageTag": "8159be86-6076-4df3-b1bf-a51881bea421",
+            "sourceColumn": "Projeto",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DepartamentoProjeto",
+            "dataType": "string",
+            "lineageTag": "af0fc31d-846f-413f-bdc1-18524a374605",
+            "sourceColumn": "DepartamentoProjeto",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "SituacaoHoras",
+            "dataType": "string",
+            "lineageTag": "11624e4d-bf70-4f85-a416-6e6cee0f0683",
+            "sourceColumn": "SituacaoHoras",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "ffae3f8f-b69d-4d19-9e5f-cfc5837b65e5",
+        "measures": [
+          {
+            "name": "Horas registradas",
+            "expression": "SUM(Assignments[Horas])",
+            "formatString": "0.0",
+            "lineageTag": "0cd3be96-2465-423d-98af-f338b3aaa386"
+          },
+          {
+            "name": "Alocacoes",
+            "expression": "COUNTROWS(Assignments)",
+            "formatString": "0",
+            "lineageTag": "19fd9758-3fa7-4345-87c3-7fcb61a3ea1e"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Assignments",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Tipos = Table.TransformColumnTypes(raw_works_on,{{\"Pno\",Int64.Type},{\"Hours\",type number}}),",
+                "    Emp = Table.NestedJoin(Tipos,{\"Essn\"},Employees,{\"EmployeeId\"},\"Emp\",JoinKind.LeftOuter),",
+                "    Nomes = Table.ExpandTableColumn(Emp,\"Emp\",{\"Nome\",\"Departamento\",\"Gerente\"},{\"Colaborador\",\"DepartamentoColaborador\",\"Gerente\"}),",
+                "    Proj = Table.NestedJoin(Nomes,{\"Pno\"},Projects,{\"ProjectId\"},\"Proj\",JoinKind.LeftOuter),",
+                "    Projetos = Table.ExpandTableColumn(Proj,\"Proj\",{\"Projeto\",\"Departamento\"},{\"Projeto\",\"DepartamentoProjeto\"}),",
+                "    Status = Table.AddColumn(Projetos,\"SituacaoHoras\",each if [Hours] = null then \"Horas ausentes\" else if [Hours] < 0 then \"Horas negativas\" else if [Hours] = 0 then \"Zero - revisar\" else \"Informadas\",type text),",
+                "    Renomeia = Table.RenameColumns(Status,{{\"Essn\",\"EmployeeId\"},{\"Pno\",\"ProjectId\"},{\"Hours\",\"Horas\"}})",
+                "in Renomeia"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "ManagerCounts",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "ManagerId",
+            "dataType": "string",
+            "lineageTag": "c2a25551-b510-4f95-a4d3-444b8bf7c92b",
+            "sourceColumn": "ManagerId",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Gerente",
+            "dataType": "string",
+            "lineageTag": "52cc701b-4952-4973-bb96-9836b94103e1",
+            "sourceColumn": "Gerente",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ColaboradoresDiretos",
+            "dataType": "int64",
+            "lineageTag": "ecac20fe-a0df-4361-9c4a-2a70a1c4ed79",
+            "sourceColumn": "ColaboradoresDiretos",
+            "summarizeBy": "sum"
+          }
+        ],
+        "lineageTag": "f818a63a-b716-4355-8034-82831cdc8e0c",
+        "partitions": [
+          {
+            "name": "ManagerCounts",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    ComGerente = Table.SelectRows(Employees,each [ManagerId] <> null),",
+                "    Agrupa = Table.Group(ComGerente,{\"ManagerId\",\"Gerente\"},{{\"ColaboradoresDiretos\",each Table.RowCount(_),Int64.Type}})",
+                "in Agrupa"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Quality",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Verificacao",
+            "dataType": "string",
+            "lineageTag": "46287795-171b-4875-bee1-6dc9f6c86301",
+            "sourceColumn": "Verificacao",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Ocorrencias",
+            "dataType": "int64",
+            "lineageTag": "650e64d1-3dac-474b-9325-7d0ac606898f",
+            "sourceColumn": "Ocorrencias",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Interpretacao",
+            "dataType": "string",
+            "lineageTag": "a54e843a-ca79-4dbe-8c2f-66ed848f9ef4",
+            "sourceColumn": "Interpretacao",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "285d19a3-1c03-46d8-8e0b-1bfbe70e5e34",
+        "partitions": [
+          {
+            "name": "Quality",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Resultado = #table(type table [Verificacao=text, Ocorrencias=Int64.Type, Interpretacao=text], {",
+                "        {\"Colaboradores sem superior\",Table.RowCount(Table.SelectRows(Employees,each [ManagerId]=null)),\"James E Borg: topo da hierarquia; preservar nulo\"},",
+                "        {\"Superior nao localizado\",Table.RowCount(Table.SelectRows(Employees,each [ManagerId]<>null and [Gerente]=null)),\"Zero esperado: referencias validas\"},",
+                "        {\"Departamento sem gerente\",Table.RowCount(Table.SelectRows(Departments,each [ManagerId]=null or [Gerente]=null)),\"Nenhuma imputacao necessaria\"},",
+                "        {\"Alocacoes com zero horas\",Table.RowCount(Table.SelectRows(Assignments,each [Horas]=0)),\"Preservar e sinalizar; nao inventar horas\"},",
+                "        {\"Horas nulas ou negativas\",Table.RowCount(Table.SelectRows(Assignments,each [Horas]=null or [Horas]<0)),\"Zero esperado\"},",
+                "        {\"IDs de colaborador duplicados\",Table.RowCount(Employees)-Table.RowCount(Table.Distinct(Employees,{\"EmployeeId\"})),\"Zero esperado\"}",
+                "    })",
+                "in Resultado"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "DateTableTemplate_cc83f010-e582-4351-9f28-c7559e86e257",
+        "annotations": [
+          {
+            "name": "__PBI_TemplateDateTable",
+            "value": "true"
+          },
+          {
+            "name": "DefaultItem",
+            "value": "DateHierarchy"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Date",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              }
+            ],
+            "dataCategory": "PaddedDateTableDates",
+            "dataType": "dateTime",
+            "formatString": "General Date",
+            "isHidden": true,
+            "isNameInferred": true,
+            "lineageTag": "ba43457c-380d-4086-969c-cbfebdce1aa6",
+            "sourceColumn": "[Date]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "Ano",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Year"
+              }
+            ],
+            "dataCategory": "Years",
+            "dataType": "int64",
+            "expression": "YEAR([Date])",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "a4eff8c3-4931-4763-820f-95a6da6c352e",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "MonthNo",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "MonthNumber"
+              }
+            ],
+            "dataCategory": "MonthOfYear",
+            "dataType": "int64",
+            "expression": "MONTH([Date])",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "01742159-ba30-4be8-ad83-c7a3331e31d8",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Mês",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Month"
+              }
+            ],
+            "dataCategory": "Months",
+            "dataType": "string",
+            "expression": "FORMAT([Date], \"MMMM\")",
+            "isHidden": true,
+            "lineageTag": "3191148a-3e5c-479a-b2ed-c020818c6cd3",
+            "sortByColumn": "MonthNo",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "QuarterNo",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "QuarterNumber"
+              }
+            ],
+            "dataCategory": "QuarterOfYear",
+            "dataType": "int64",
+            "expression": "INT(([MonthNo] + 2) / 3)",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "e1398b10-cca0-4317-aa78-772c32dcfe02",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Trimestre",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Quarter"
+              }
+            ],
+            "dataCategory": "Quarters",
+            "dataType": "string",
+            "expression": "\"Qtr \" & [QuarterNo]",
+            "isHidden": true,
+            "lineageTag": "2f6d4f1c-1a8d-4a12-8cd7-6da84377a298",
+            "sortByColumn": "QuarterNo",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Dia",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Day"
+              }
+            ],
+            "dataCategory": "DayOfMonth",
+            "dataType": "int64",
+            "expression": "DAY([Date])",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "80506c1a-0238-4c3c-8e17-4cc17433630d",
+            "summarizeBy": "none",
+            "type": "calculated"
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Hierarquia de datas",
+            "annotations": [
+              {
+                "name": "TemplateId",
+                "value": "DateHierarchy"
+              }
+            ],
+            "levels": [
+              {
+                "name": "Ano",
+                "column": "Ano",
+                "lineageTag": "bf6631b4-6b49-4f8c-b8e8-e2670c6edf33",
+                "ordinal": 0
+              },
+              {
+                "name": "Trimestre",
+                "column": "Trimestre",
+                "lineageTag": "8184e501-4994-4b89-afa5-8c836a167a61",
+                "ordinal": 1
+              },
+              {
+                "name": "Mês",
+                "column": "Mês",
+                "lineageTag": "911409bd-b743-4e08-92ee-8a9d96a9c139",
+                "ordinal": 2
+              },
+              {
+                "name": "Dia",
+                "column": "Dia",
+                "lineageTag": "add9f269-a99f-404c-abf8-4795c6af6f71",
+                "ordinal": 3
+              }
+            ],
+            "lineageTag": "6885d622-fc08-4d31-90f1-2d9b82517135"
+          }
+        ],
+        "isHidden": true,
+        "isPrivate": true,
+        "lineageTag": "25d3a744-0d74-4bba-80c4-2aaa7e15d411",
+        "partitions": [
+          {
+            "name": "DateTableTemplate_cc83f010-e582-4351-9f28-c7559e86e257",
+            "mode": "import",
+            "source": {
+              "expression": "Calendar(Date(2015,1,1), Date(2015,1,1))",
+              "type": "calculated"
+            }
+          }
+        ]
+      },
+      {
+        "name": "LocalDateTable_36a95257-0ebd-4612-9096-7ce25e6eeb77",
+        "annotations": [
+          {
+            "name": "__PBI_LocalDateTable",
+            "value": "true"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Date",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              }
+            ],
+            "dataCategory": "PaddedDateTableDates",
+            "dataType": "dateTime",
+            "formatString": "General Date",
+            "isHidden": true,
+            "isNameInferred": true,
+            "lineageTag": "c20d759b-0942-42d6-89c0-463db5a0010f",
+            "sourceColumn": "[Date]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "Ano",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Year"
+              }
+            ],
+            "dataCategory": "Years",
+            "dataType": "int64",
+            "expression": "YEAR([Date])",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "296a4122-ba73-466f-ba3f-2d8870b17355",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "MonthNo",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "MonthNumber"
+              }
+            ],
+            "dataCategory": "MonthOfYear",
+            "dataType": "int64",
+            "expression": "MONTH([Date])",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "408a994e-435e-4348-9c2f-519b3544e998",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Mês",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Month"
+              }
+            ],
+            "dataCategory": "Months",
+            "dataType": "string",
+            "expression": "FORMAT([Date], \"MMMM\")",
+            "isHidden": true,
+            "lineageTag": "f1046af6-e673-41e5-b082-0592dfaa5314",
+            "sortByColumn": "MonthNo",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "QuarterNo",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "QuarterNumber"
+              }
+            ],
+            "dataCategory": "QuarterOfYear",
+            "dataType": "int64",
+            "expression": "INT(([MonthNo] + 2) / 3)",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "abe1d420-5ee2-4a86-8486-e0608bd285fe",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Trimestre",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Quarter"
+              }
+            ],
+            "dataCategory": "Quarters",
+            "dataType": "string",
+            "expression": "\"Qtr \" & [QuarterNo]",
+            "isHidden": true,
+            "lineageTag": "9136b05a-a687-494c-bcaa-082656caa6bb",
+            "sortByColumn": "QuarterNo",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Dia",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Day"
+              }
+            ],
+            "dataCategory": "DayOfMonth",
+            "dataType": "int64",
+            "expression": "DAY([Date])",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "ecfd131f-e6db-46bd-95fe-a2f02e282d81",
+            "summarizeBy": "none",
+            "type": "calculated"
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Hierarquia de datas",
+            "annotations": [
+              {
+                "name": "TemplateId",
+                "value": "DateHierarchy"
+              }
+            ],
+            "levels": [
+              {
+                "name": "Ano",
+                "column": "Ano",
+                "lineageTag": "429c5605-ed9f-4967-9454-9e1e991bc0e5",
+                "ordinal": 0
+              },
+              {
+                "name": "Trimestre",
+                "column": "Trimestre",
+                "lineageTag": "16b83fda-ca3e-4382-ae7f-7de45129f38d",
+                "ordinal": 1
+              },
+              {
+                "name": "Mês",
+                "column": "Mês",
+                "lineageTag": "08d7d010-8ca9-48a4-a33f-3df4aa3e1dbd",
+                "ordinal": 2
+              },
+              {
+                "name": "Dia",
+                "column": "Dia",
+                "lineageTag": "6e20531e-09de-457f-910e-0d9884c2ee09",
+                "ordinal": 3
+              }
+            ],
+            "lineageTag": "af720408-b3f7-432c-a596-e1a5aaab0729"
+          }
+        ],
+        "isHidden": true,
+        "lineageTag": "e30d4d7b-d79b-40a7-ba7c-d2189350928a",
+        "partitions": [
+          {
+            "name": "LocalDateTable_36a95257-0ebd-4612-9096-7ce25e6eeb77",
+            "mode": "import",
+            "source": {
+              "expression": "Calendar(Date(Year(MIN('Departments'[InicioGestao])), 1, 1), Date(Year(MAX('Departments'[InicioGestao])), 12, 31))",
+              "type": "calculated"
+            }
+          }
+        ],
+        "showAsVariationsOnly": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "employees": 8,
+  "departments": 3,
+  "projects": 6,
+  "assignments": 16,
+  "hours": 275,
+  "salary": 281000,
+  "zeroHours": 1,
+  "managers": {
+    "333445555": 3,
+    "888665555": 2,
+    "987654321": 2
+  }
+}

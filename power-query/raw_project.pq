@@ -1,0 +1,12 @@
+let
+    Fonte = #table({"Pname", "Pnumber", "Plocation", "Dnum"}, {
+        {"ProductX", 1, "Bellaire", 5},
+        {"ProductY", 2, "Sugarland", 5},
+        {"ProductZ", 3, "Houston", 5},
+        {"Computerization", 10, "Stafford", 4},
+        {"Reorganization", 20, "Houston", 1},
+        {"Newbenefits", 30, "Stafford", 4}
+    }),
+    Tipos = Table.TransformColumnTypes(Fonte, {{"Pname", type text}, {"Pnumber", type number}, {"Plocation", type text}, {"Dnum", type number}})
+in
+    Tipos

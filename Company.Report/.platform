@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Company-Insights"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "424c3b41-08fa-4ca1-a156-22293f389a7f"
+  }
+}
